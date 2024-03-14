@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="pokemonClass.js"></script>
+        <script type="text/javascript" src="moves.js"></script>
+        <script type="text/javascript" src="pokemonStorage.js"></script>
+        <script type="text/javascript" src="pokeGet.js"></script>
+        <script type="text/javascript" src="playerInfoP.js"></script>
+        <script type="text/javascript" src="enemyInfo.js"></script>
+        <script type="text/javascript" src="battle.js"></script>
+        <script type="text/javascript" src="update.js"></script>
+    </head>
+    
+    <body onload="load()">
+    
+        <div class="box" id="starter">
+            <p>Pick a starter.</p>
+            <button id="bulbasaur" onclick="bulb()">Bulbasaur</button>
+            <button id="charmander" onclick="char()">Charmander</button>
+            <button id="squirtle" onclick="squir()">Squirtle</button>
+        </div>
+        
+        <div id="battleDiv" style="display: none">
+            <div class="box" id="battle">
+                <p id="playerhealth">PLAYER HEALTH</p>
+                <p id="enemyhealth">ENEMY HEALTH</p>
+            </div>
+            
+            <div class="box" id="battleMenu">
+                <div id="yourTurn">
+                    <p id="eventTxt">EVENT TEXT</p>
+                </div>
+                <div id="enemyTurn">
+                    <p id="enemyEventTxt"><!-- used to be special area for attack text for enemy - moved to eventTxt when i made game turn-based --></p>
+                </div>
+                
+                <button id="next" onclick="next()" style="display:none">NEXT</button>
+                
+                <div id="buttonMenu">
+                    <button id="fight" onclick="moveMenu()">FIGHT</button>
+                    <button id="party" onclick="party()">PARTY</button>
+                </div>
+                
+                <div id="moves" style="display: none;">
+                    <button id="moveOne" onclick="moveOne()">PLACEHOLDER</button> <button id="moveTwo" onclick="moveTwo()">PLACEHOLDER</button> <button id="moveThree" onclick="moveThree()">PLACEHOLDER</button> <button id="moveFour" onclick="moveFour()">PLACEHOLDER</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="pokemonInfo" style="display: none">
+            <div class="box" id="party">
+                <button id="party1" onclick="party1()">PARTY 1</button>
+                <button id="party2" onclick="party2()">PARTY 2</button>
+                <button id="party3" onclick="party3()">PARTY 3</button>
+                <button id="party4" onclick="party4()">PARTY 4</button>
+                <button id="party5" onclick="party5()">PARTY 5</button>
+                <button id="party6" onclick="party6()">PARTY 6</button>
+                <button id="partyBack" onclick="partyBack()">BACK</button>
+            </div>
+            
+            <div class="box" id="pokemon" style="display: none">
+                <p id="pokeName">POKEMON NAME</p>
+                <p id="pokeSpecies">POKEMON SPECIES</p>
+                <p id="pokeID">POKEMON ID</p>
+                <p id="pokeLevel">LEVEL</p>
+                <p id="pokeType">TYPE1/TYPE2</p>
+                
+                <p id="pokeHP">HP: 0/0</p>
+                <p id="pokeATK">ATK: 0</p>
+                <p id="pokeDEF">DEF: 0</p>
+                <p id="pokeSPATK">SPATK: 0</p>
+                <p id="pokeSPDEF">SPDEF: 0</p>
+                <p id="pokeSPE">SPE: 0</p>
+            </div>
+        </div>
+        
+    </body>
+</html>

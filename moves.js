@@ -1,0 +1,47 @@
+const moveset = [
+    {
+        name: "Scratch",
+        power: 40,
+        type: "Normal",
+        mType: "Physical",
+        number: 10,
+        accuracy: 100,
+        pp: 35,
+    },
+    {
+        name: "Tackle",
+        power: 40,
+        type: "Normal",
+        mType: "Physical",
+        number: 33,
+        accuracy: 100,
+        pp: 35,
+    },
+    {
+        name: "Ember",
+        power: 40,
+        type: "Fire",
+        mType: "Special",
+        number: 52,
+        accuracy: 100,
+        pp: 25,
+    },
+    {
+        name: "Bubble",
+        power: 40,
+        type: "Water",
+        mType: "Special",
+        number: 145,
+        accuracy: 100,
+        pp: 30,
+    },
+    {
+        name: "Magical Leaf",
+        power: 60,
+        type: "Grass",
+        mType: "Special",
+        number: 345,
+        accuracy: 9999999999,
+        pp: 20,
+    }
+]
