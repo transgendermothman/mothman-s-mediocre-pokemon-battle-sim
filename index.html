@@ -1,23 +1,24 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css">
-        <script type="text/javascript" src="pokemonClass.js"></script>
-        <script type="text/javascript" src="moves.js"></script>
-        <script type="text/javascript" src="pokemonStorage.js"></script>
-        <script type="text/javascript" src="pokeGet.js"></script>
-        <script type="text/javascript" src="playerInfoP.js"></script>
-        <script type="text/javascript" src="enemyInfo.js"></script>
-        <script type="text/javascript" src="battle.js"></script>
-        <script type="text/javascript" src="update.js"></script>
+        <script src="pokemonClass.js"></script>
+        <script src="pokemonStorage.js"></script>
+        <script src="types.js"></script>
+        <script src="moves.js"></script>
+        <script src="playerInfo.js"></script>
+        <script src="pokeGet.js"></script>
+        <script src="enemyInfo.js"></script>
+        <script src="battle.js"></script>
+        <script src="update.js"></script>
     </head>
     
     <body onload="load()">
     
         <div class="box" id="starter">
             <p>Pick a starter.</p>
-            <button id="bulbasaur" onclick="bulb()">Bulbasaur</button>
-            <button id="charmander" onclick="char()">Charmander</button>
-            <button id="squirtle" onclick="squir()">Squirtle</button>
+            <button id="bulbasaur" onclick="bulbasaur()">Bulbasaur</button>
+            <button id="charmander" onclick="charmander()">Charmander</button>
+            <button id="squirtle" onclick="squirtle()">Squirtle</button>
         </div>
         
         <div id="battleDiv" style="display: none">
