@@ -1,8 +1,16 @@
-var enemy = null;
-var enemyLevel = null;
-var enemyName = null;
+var enemy;
+var enemyLevel;
+var enemyName;
 var eAcc = 1;
 let enemyIvs = [];
+
+var eHP;
+var eHM;
+var eAtk;
+var eDef;
+var eSat;
+var eSde;
+var eSpe;
 
 function getEnemy() {
     enemy = pokedex[Math.floor(Math.random() * pokedex.length)];
