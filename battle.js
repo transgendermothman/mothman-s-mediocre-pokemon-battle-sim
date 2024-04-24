@@ -1,30 +1,23 @@
-var eHP = 1;
-var eHM = 0;
-var eAtk = 0;
-var eDef = 0;
-var eSat = 0;
-var eSde = 0;
-var eSpe = 0;
+var critical = false;
 
-var enemyName = "";
-
-var pCritical = false;
-var eCritical = false;
-
-var movePower = 0;
+var mName;
+var mType;
+var moveType;
+var mPower;
+var mAccuracy;
 
 var movesLast = false;
 var enemyMove = false;
-var playerMove = false;
+var playerMove;
 
-let eMove = null;
+var n;
 
 // MOVES
 
     function speedCheck() {
-        if (moveName == undefined)
+        if (mName == undefined)
         {
-            
+            alert("move undefined");
         }
         
         else {
@@ -49,36 +42,98 @@ let eMove = null;
             }
         }
     }
+    
+    function moveFind(x) {
+            let i = 0;
+            console.log(n);
+            
+            do {
+                if (x.number == moves[n].number) {
+                    console.log(moves[n]);
+                    console.log(x);
+                    console.log("movefind");
+                    mName = x.name;
+                    mType = x.type;
+                    moveType = x.mType;
+                    mPower = x.power;
+                    mAccuracy = x.accuracy;
+                    break;
+                }
+                else {
+                    
+                }
+                
+                i++;
+            }
+            
+            while (i < 2);
+        }
 
     function moveOne() {
-        move = move1;
-        movePower = move1.power;
-        moveName = name1;
-        
+        n = 0;
+        console.log("MOVE1");
+        moveset.forEach(moveFind);
+        console.log(mName + mType + moveType + mPower + mAccuracy);
         speedCheck();
     }
     
     function moveTwo() {
-        move = move2;
-        movePower = move2.power;
-        moveName = name2;
-        
+        n = 1;
+        console.log("MOVE2");
+        moveset.forEach(moveFind);
+        console.log(mName + mType + moveType + mPower + mAccuracy);
         speedCheck();
     }
     
     function moveThree() {
-        move = move3;
-        movePower = move3.power;
-        moveName = name3;
-        
+        moveset.forEach(function moveFind(x) {
+            for (let n = 0; n < 1; n++) {
+                if (moves[2].name == undefined) {
+                    break;
+                }
+                
+                else {
+                    if (x.number == moves[2].number) {
+                        mName = x.name;
+                        mType = x.type;
+                        moveType = x.mType;
+                        mPower = x.power;
+                        mAccuracy = x.accuracy;
+                        break;
+                    }
+                    else {
+                        
+                    }
+                }
+            }
+        });
+        console.log(mName + mType + moveType + mPower + mAccuracy);
         speedCheck();
     }
     
     function moveFour() {
-        move = move4;
-        movePower = move4.power;
-        moveName = name4;
-        
+        moveset.forEach(function moveFind(x) {
+            for (let n = 0; n < 1; n++) {
+                if (moves[3].name == undefined) {
+                    break;
+                }
+                
+                else {
+                    if (x.number == moves[3].number) {
+                        mName = x.name;
+                        mType = x.type;
+                        moveType = x.mType;
+                        mPower = x.power;
+                        mAccuracy = x.accuracy;
+                        break;
+                    }
+                    else {
+                        
+                    }
+                }
+            }
+        });
+        console.log(mName + mType + moveType + mPower + mAccuracy);
         speedCheck();
     }
 
@@ -87,18 +142,18 @@ let eMove = null;
     function playerTurn() {
         playerMove = true;
         
-        accuracy = move.accuracy * pAcc
+        accuracy = mAccuracy * pAcc
         accCheck = Math.round(Math.random() * accuracy);
         
         if (accCheck > accuracy) {
-            document.getElementById("eventTxt").innerHTML = playerName + " used " + moveName + ", but missed!";
+            document.getElementById("eventTxt").innerHTML = playerName + " used " + mName + ", but missed!";
         }
         
         else {
-            if (move.mType == "Physical") {
+            if (moveType == "Physical") {
                 physicalAttackP();
             }
-            else if (move.mType == "Special") {
+            else if (moveType == "Special") {
                 specialAttackP();
             }
         
@@ -107,8 +162,9 @@ let eMove = null;
         }
     }
     
-    function findMoveE(moves) {
-        return moves.name = enemy.moves[em];
+    function findMoveE(mv) {
+        // BROKEN, CHANGE TO PLAYER MOVE CALCULATIONS
+        return mv.name = enemy.moves[em];
     }
     
     function enemyTurn() {
@@ -150,52 +206,58 @@ let eMove = null;
 
     function physicalAttackP() {
         /* add accuracy check when you put moves together */
-        var pDamage = Math.floor(((((2/*level*//5)+2)*movePower*(pAtk/eDef))/50)+2)
-        var crit = Math.random() * 24;
-        /* later account for type effectiveness too - make separate function and perhaps another script to handle types? */
+        var damage = Math.floor(((((2/*level*//5)+2)*mPower*(pAtk/eDef))/50)+2)
         
-        if (crit <= 1) {
-            pCritical = true;
-            pDamage = Math.floor(pDamage * 1.5);
-        }
-        
-        eHP = eHP - pDamage;
+        calculateBonus(damage);
+        eHP = eHP - damage;
     }
     
     function specialAttackP() {
-        var pDamage = Math.floor(((((2/*level*//5)+2)*movePower*(pSat/eSde))/50)+2)
-        var crit = Math.floor(Math.random() * 24);
+        var damage = Math.floor(((((2/*level*//5)+2)*mPower*(pSat/eSde))/50)+2)
         
-        if (crit <= 1) {
-            pCritical = true;
-            pDamage = Math.floor(pDamage * 1.5);
-        }
-        
-        eHP = eHP - pDamage;
+        calculateBonus(damage);
+        eHP = eHP - damage;
     }
 
 // ENEMY ATTACKS
 
     function physicalAttackE() {
-        var eDamage = Math.floor(((((2/*level*//5)+2)*eMove.power*(eAtk/pDef))/50)+2)
-        var crit = Math.random() * 24;
+        var damage = Math.floor(((((2/*level*//5)+2)*eMove.power*(eAtk/pDef))/50)+2)
         
-        if (crit <= 1) {
-            eCritical = true;
-            eDamage = Math.floor(eDamage * 1.5);
-        }
-        
-        pHP = pHP - eDamage;
+        calculateBonus(damage);
+        pHP = pHP - damage;
     }
     
     function specialAttackE() {
-        var eDamage = Math.floor(((((2/*level*//5)+2)*eMove.power*(eSat/pSde))/50)+2)
-        var crit = Math.random() * 24;
+        var damage = Math.floor(((((2/*level*//5)+2)*eMove.power*(eSat/pSde))/50)+2)
         
-        if (crit <= 1) {
-            eCritical = true;
-            eDamage = Math.floor(eDamage * 1.5);
-        }
-        
-        pHP = pHP - eDamage;
+        calculateBonus(damage);
+        pHP = pHP - damage;
     }
+    
+    function calculateBonus(damage) {
+        if (playerMove == true) {
+            var crit = Math.random() * 24;
+            
+            if (crit <= 1) {
+                pCritical = true;
+                damage = Math.floor(damage * 1.5);
+            }
+        }
+        else if (enemyMove == true) {
+            var crit = Math.random() * 24;
+            
+            if (crit <= 1) {
+                eCritical = true;
+                damage = Math.floor(damage * 1.5);
+            }
+        }
+    }
+    
+    /*function findType(type) {
+        return type.name = moveType;
+    }
+    
+    function typeBonus() {
+        movetype = types.find(findType);
+    }*/
