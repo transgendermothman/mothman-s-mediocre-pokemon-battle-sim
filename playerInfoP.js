@@ -1,20 +1,25 @@
-let n = null;
-
-var player = null;
-var playerName = null;
+var player;
+var playerName;
     
-var pHP = null;
-var pHM = null;
-var pAtk = null;
-var pDef = null;
-var pSat = null;
-var pSde = null;
-var pSpe = null;
+var pHP;
+var pHM;
+var pAtk;
+var pDef;
+var pSat;
+var pSde;
+var pSe;
 var pAcc = 1;
 
-// GETTING POKEMON INFO - quick note to self: maybe use variable in place of "0" for when you need to switch pokemon???
+var move1;
+var move2;
+var move3;
+var move4;
 
-function findPokemon() {
+const moves = [];
+
+// GETTING POKEMON INFO
+
+function findPokemon(n) {
     player = pokemon[n].species;
     playerName = pokemon[n].name;
     
@@ -27,54 +32,57 @@ function findPokemon() {
     pSpe = Math.floor(((((2*player.stats[5])+pokemon[n].ivs[5])*pokemon[n].level)/100)+5);
 }
 
-var moveNum = 0;
-// "why the hell did you do moves like this" i'm sure there's a better way. i don't care
-
-function findMove(moves) {
-    return moves.name = player.moves[moveNum];
+function generateMoves() {
+    moveset.forEach(function moveFind(m) {
+        for (let n = 0; n < 4; n++) {
+            if (player.moves[n] == undefined) {
+                break;
+            }
+            
+            else {
+                if (m.name == player.moves[n]) {
+                    const x = Object.assign(m);
+                    moves.push(x);
+                    n++
+                }
+                else {
+                    
+                }
+            }
+        }
+    });
 }
 
 function moveCheck() {
-    moveNum = 0;
-    move1 = moveset.find(findMove);
-        if (move1 == undefined) {
-            name1 = "N/A";
-        }
-        else {
-            name1 = move1.name;
-        }
+    if (moves[0].name == undefined) {
+        name1 = "N/A";
+    }
     
-    moveNum = 1;    
-    move2 = moveset.find(findMove);
-        if (move2 == undefined) {
-            name2 = "N/A";
-        }
-        else {
-            name2 = move2.name;
-        }
+    else {
+        name1 = moves[0].name;
+    }
     
-    moveNum = 2;
-    move3 = moveset.find(findMove);
-        if (move3 == undefined) {
-            name3 = "N/A";
-        }
-        else {
-            name3 = move3.name;
-        }
-
-    moveNum = 3;
-    move4 = moveset.find(findMove);
-        if (move4 == undefined) {
-            name4 = "N/A";
-        }
-        else {
-            name4 = move4.name;
-        }
-        
-    document.getElementById("moveOne").innerHTML = name1;
-    document.getElementById("moveTwo").innerHTML = name2;
-    document.getElementById("moveThree").innerHTML = name3;
-    document.getElementById("moveFour").innerHTML = name4;
+    if (moves[1] == undefined) {
+        name2 = "N/A";
+    }
     
-    // it wouldn't let me access the move names for reasons beyond my understanding so i had to do this
+    else {
+        name2 = moves[1].name;
+    }
+    
+    if (moves[2] == undefined) {
+        name3 = "N/A";
+    }
+    
+    else {
+        name3 = moves[2].name;
+    }
+    
+    if (moves[3] == undefined) {
+        name4 = "N/A";
+    }
+    
+    else {
+        name4 = moves[3].name;
+    }
 }
