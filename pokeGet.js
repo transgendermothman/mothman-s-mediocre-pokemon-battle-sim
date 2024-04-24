@@ -1,3 +1,5 @@
+var pokenum = 0;
+
 class Pokemon {
     constructor(name,species,id,level,exp, expNext,stats,ivs,evs){
         this.name = name;
@@ -12,8 +14,9 @@ class Pokemon {
     }
 }
 
-function pokeAdd() {
-    pokeNum = pokeNum + 1;
+function pokeGet(p) {
+    let n = pokedex[p];
+    pokenum = pokenum + 1;
     
     let ivsArr = [];
     for (let i = 0; i < 6; i++) {
@@ -22,26 +25,21 @@ function pokeAdd() {
     
     let evsArr = [0,0,0,0,0,0];
     
-    const poke = new Pokemon(p.name,p,pokeNum,10,0,0,p.stats,ivsArr,evsArr);
+    const poke = new Pokemon(n.name,n,pokenum,10,0,0,n.stats,ivsArr,evsArr);
     pokemon.push(poke);
+    battle();
 }
 
 // POKEMON OBTAIN
 
-    function bulb() {
-        p = pokedex[0];
-        pokeAdd();
-        battle();
+    function bulbasaur() {
+        pokeGet(0);
     }
     
-    function char() {
-        p = pokedex[1];
-        pokeAdd();
-        battle();
+    function charmander() {
+        pokeGet(1);
     }
     
-    function squir() {
-        p = pokedex[2];
-        pokeAdd();
-        battle();
+    function squirtle() {
+        pokeGet(2);
     }
