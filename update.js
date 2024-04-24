@@ -1,192 +1,263 @@
-function load() {
-    // no use yet but might have one in the future ^^_^^
-    document.body.style.display = "inline";
-}
+var critical = false;
 
-// BATTLE STARTER
+var mName;
+var mType;
+var moveType;
+var mPower;
+var mAccuracy;
 
-    function battle() {
-        n = 0;
-        
-        findPokemon();
-        getEnemy();
-        updateHealth();
-        document.getElementById("eventTxt").innerHTML = "A wild " + enemyName + " appeared!";
-        document.getElementById("starter").style.display = "none";
-        document.getElementById("battleDiv").style.display = "inline";
-    }
-    
-// HEALTH UPDATE + WIN/LOSS - should probably program a draw
+var movesLast = false;
+var enemyMove = false;
+var playerMove;
 
-    function updateHealth() {
-        if (pHP > 0 && eHP > 0) {
-            document.getElementById("playerhealth").innerHTML = "Your " + playerName + ": " + pHP + "/" + pHM;
-            document.getElementById("enemyhealth").innerHTML = "Enemy " + enemyName + ": " + eHP + "/" + eHM;
-            
-            pCritical = false;
-            eCritical = false;
+var n;
+
+// MOVES
+
+    function speedCheck() {
+        if (mName == undefined)
+        {
+            alert("move undefined");
         }
+        
         else {
-            endTurn();
-        }
-    }
-    
-    function win() {
-        document.getElementById("battle").style.display = "none";
-        document.getElementById("buttonMenu").style.display = "none";
-        document.getElementById("enemyEventTxt").style.display = "none";
-        document.getElementById("next").style.display = "none";
-        document.getElementById("eventTxt").innerHTML = enemyName + " fainted! You won the battle!";
-    }
-    
-    function loss() {
-        document.getElementById("battle").style.display = "none";
-        document.getElementById("buttonMenu").style.display = "none";
-        document.getElementById("enemyEventTxt").style.display = "none";
-        document.getElementById("next").style.display = "none";
-        document.getElementById("eventTxt").innerHTML = playerName + " fainted! ... You blacked out!";
-    }
-
-// MOVES, ENDTURN, NEXT
-
-    function moveUpdate() {
-        document.getElementById("next").style.display = "inline";
-        document.getElementById("buttonMenu").style.display = "none";
-        document.getElementById("moves").style.display = "none";
-    }
-    
-    function next() {
-        updateHealth();
-        
-        if (playerMove == true) {
-            if (movesLast == true) {
-                endTurn();
-                
+            if (pSpe > eSpe) {
                 movesLast = false;
-            }
-            else {
-                enemyTurn();
-            }
-            
-            playerMove = false;
-        }
-        else if (enemyMove == true) {
-            if (movesLast == false) {
-                endTurn();
-            }
-            else {
                 playerTurn();
             }
+            else if (eSpe > pSpe) {
+                movesLast = true;
+                enemyTurn();
+            }
+            else if (eSpe == pSpe) {
+                var chance = Math.floor(Math.random() * 2);
+                if (chance >= 2) {
+                    movesLast = false;
+                    playerTurn();
+                }
+                else {
+                    movesLast = true;
+                    enemyTurn();
+                }
+            }
+        }
+    }
+    
+    function moveFind(x) {
+            let i = 0;
+            console.log(n);
             
-            enemyMove = false;
+            do {
+                if (x.number == moves[n].number) {
+                    console.log(moves[n]);
+                    console.log(x);
+                    console.log("movefind");
+                    mName = x.name;
+                    mType = x.type;
+                    moveType = x.mType;
+                    mPower = x.power;
+                    mAccuracy = x.accuracy;
+                    break;
+                }
+                else {
+                    
+                }
+                
+                i++;
+            }
+            
+            while (i < 2);
         }
+
+    function moveOne() {
+        n = 0;
+        console.log("MOVE1");
+        moveset.forEach(moveFind);
+        console.log(mName + mType + moveType + mPower + mAccuracy);
+        speedCheck();
+    }
+    
+    function moveTwo() {
+        n = 1;
+        console.log("MOVE2");
+        moveset.forEach(moveFind);
+        console.log(mName + mType + moveType + mPower + mAccuracy);
+        speedCheck();
+    }
+    
+    function moveThree() {
+        moveset.forEach(function moveFind(x) {
+            for (let n = 0; n < 1; n++) {
+                if (moves[2].name == undefined) {
+                    break;
+                }
+                
+                else {
+                    if (x.number == moves[2].number) {
+                        mName = x.name;
+                        mType = x.type;
+                        moveType = x.mType;
+                        mPower = x.power;
+                        mAccuracy = x.accuracy;
+                        break;
+                    }
+                    else {
+                        
+                    }
+                }
+            }
+        });
+        console.log(mName + mType + moveType + mPower + mAccuracy);
+        speedCheck();
+    }
+    
+    function moveFour() {
+        moveset.forEach(function moveFind(x) {
+            for (let n = 0; n < 1; n++) {
+                if (moves[3].name == undefined) {
+                    break;
+                }
+                
+                else {
+                    if (x.number == moves[3].number) {
+                        mName = x.name;
+                        mType = x.type;
+                        moveType = x.mType;
+                        mPower = x.power;
+                        mAccuracy = x.accuracy;
+                        break;
+                    }
+                    else {
+                        
+                    }
+                }
+            }
+        });
+        console.log(mName + mType + moveType + mPower + mAccuracy);
+        speedCheck();
+    }
+
+// PLAYER + ENEMY TURNS
+
+    function playerTurn() {
+        playerMove = true;
+        
+        accuracy = mAccuracy * pAcc
+        accCheck = Math.round(Math.random() * accuracy);
+        
+        if (accCheck > accuracy) {
+            document.getElementById("eventTxt").innerHTML = playerName + " used " + mName + ", but missed!";
+        }
+        
         else {
-            alert("TEST");
+            if (moveType == "Physical") {
+                physicalAttackP();
+            }
+            else if (moveType == "Special") {
+                specialAttackP();
+            }
+        
+            moveUpdate();
+            attackText();
         }
     }
     
-    function endTurn() {
-        document.getElementById("next").style.display = "none";
+    function findMoveE(mv) {
+        // BROKEN, CHANGE TO PLAYER MOVE CALCULATIONS
+        return mv.name = enemy.moves[em];
+    }
+    
+    function enemyTurn() {
+        enemyMove = true;
         
-        if (pHP <= 0) {
-            loss();
+        em = Math.floor(Math.random() * 4);
+        eMove = moveset.find(findMoveE);
+        
+        if (eMove == undefined) {
+            do {
+                em = Math.floor(Math.random() * 4);
+                eMove = moveset.find(findMoveE);
+            }
+            
+            while(eMove == undefined);
         }
-        else if (eHP <= 0) {
-            win();
+        
+        accuracy = eMove.accuracy * eAcc
+        accCheck = Math.round(Math.random() * accuracy);
+        
+        if (accCheck > accuracy) {
+            document.getElementById("eventTxt").innerHTML = enemyName + " used " + eMove.name + ", but missed!";
         }
+        
         else {
-            document.getElementById("buttonMenu").style.display = "inline";
-            document.getElementById("moves").style.display = "none";
-            document.getElementById("eventTxt").innerHTML = "What will you do?";
-        }
-    }
-
-// ATTACK TEXT
-
-    function attackText() {
-        if (pCritical == true) {
-            document.getElementById("eventTxt").innerHTML = playerName + " used " + moveName + "! Critical hit!";
-        }
-        else {
-            document.getElementById("eventTxt").innerHTML = playerName + " used " + moveName + "!";
+            if (eMove.mType == "Physical") {
+                physicalAttackE();
+            }
+            else if (eMove.mType == "Special") {
+                specialAttackE();
+            }
+            
+            moveUpdate();
+            enemyAttackText();
         }
     }
     
-    function enemyAttackText() {
-        if (eCritical == true)
-        {
-            document.getElementById("eventTxt").innerHTML = enemyName + " used " + eMove.name + "! Critical hit!";
+// PLAYER ATTACKS
+
+    function physicalAttackP() {
+        /* add accuracy check when you put moves together */
+        var damage = Math.floor(((((2/*level*//5)+2)*mPower*(pAtk/eDef))/50)+2)
+        
+        calculateBonus(damage);
+        eHP = eHP - damage;
+    }
+    
+    function specialAttackP() {
+        var damage = Math.floor(((((2/*level*//5)+2)*mPower*(pSat/eSde))/50)+2)
+        
+        calculateBonus(damage);
+        eHP = eHP - damage;
+    }
+
+// ENEMY ATTACKS
+
+    function physicalAttackE() {
+        var damage = Math.floor(((((2/*level*//5)+2)*eMove.power*(eAtk/pDef))/50)+2)
+        
+        calculateBonus(damage);
+        pHP = pHP - damage;
+    }
+    
+    function specialAttackE() {
+        var damage = Math.floor(((((2/*level*//5)+2)*eMove.power*(eSat/pSde))/50)+2)
+        
+        calculateBonus(damage);
+        pHP = pHP - damage;
+    }
+    
+    function calculateBonus(damage) {
+        if (playerMove == true) {
+            var crit = Math.random() * 24;
+            
+            if (crit <= 1) {
+                pCritical = true;
+                damage = Math.floor(damage * 1.5);
+            }
         }
-        else {
-            document.getElementById("eventTxt").innerHTML = enemyName + " used " + eMove.name + "!";
+        else if (enemyMove == true) {
+            var crit = Math.random() * 24;
+            
+            if (crit <= 1) {
+                eCritical = true;
+                damage = Math.floor(damage * 1.5);
+            }
         }
     }
-
-// MOVE MENU
-
-    function moveMenu() {
-        document.getElementById("buttonMenu").style.display = "none";
-        document.getElementById("moves").style.display = "inline";
-        moveCheck();
+    
+    /*function findType(type) {
+        return type.name = moveType;
     }
     
-// PARTY
-    
-    function party() {
-        document.getElementById("buttonMenu").style.display = "none";
-        document.getElementById("pokemonInfo").style.display = "inline";
-    }
-    
-    function partyBack() {
-        document.getElementById("buttonMenu").style.display = "inline";
-        document.getElementById("pokemonInfo").style.display = "none";
-    }
-    
-// POKEMON INFO - MOVE TO ANOTHER SCRIPT?
-
-    let pkmn = null;
-    let pkmnName = null;
-    
-    let pkHP = null;
-    let pkHM = null;
-    let pkAtk = null;
-    let pkDef = null;
-    let pkSat = null;
-    let pkSde = null;
-    let pkSpe = null;
-
-    function findParty() {
-        // NOTE: ADD MOVE CHECK OR MODIFY... FIX UP LATER
-        
-        pkmn = pokemon[x].species;
-        pkmnName = pokemon[x].name;
-        
-        pkHP = Math.round(((((2*pkmn.stats[0])+pokemon[x].ivs[0]/*+evs*/)*pokemon[x].level)/100)+pokemon[x].level+10);
-        pkHM = pkHP;
-        pkAtk = Math.floor(((((2*pkmn.stats[1])+pokemon[x].ivs[1])*pokemon[x].level)/100)+5); /*add nature*/
-        pkDef = Math.floor(((((2*pkmn.stats[2])+pokemon[x].ivs[2])*pokemon[x].level)/100)+5);
-        pkSat = Math.floor(((((2*pkmn.stats[3])+pokemon[x].ivs[3])*pokemon[x].level)/100)+5);
-        pkSde = Math.floor(((((2*pkmn.stats[4])+pokemon[x].ivs[4])*pokemon[x].level)/100)+5);
-        pkSpe = Math.floor(((((2*pkmn.stats[5])+pokemon[x].ivs[5])*pokemon[x].level)/100)+5);
-    }
-
-    function party1() {
-        document.getElementById("party").style.display = "none";
-        x = 0;
-        findParty();
-        
-        document.getElementById("pokeName").innerHTML = pkmnName;
-        document.getElementById("pokeSpecies").innerHTML = pkmn.name;
-        document.getElementById("pokeID").innerHTML = "ID: " + pokemon[n].id;
-        document.getElementById("pokeLevel").innerHTML = "Level: " + pokemon[n].level;
-        document.getElementById("pokeType").innerHTML = pkmn.type[0] + "/" + pkmn.type[1]/*broken for monotype pokemon, fix later*/;
-        
-        document.getElementById("pokeHP").innerHTML = "HP: " + pkHP + "/" + pkHM;
-        document.getElementById("pokeATK").innerHTML = "ATK: " + pkAtk;
-        document.getElementById("pokeDEF").innerHTML = "DEF: " + pkDef;
-        document.getElementById("pokeSPATK").innerHTML = "SPATK: " + pkSat;
-        document.getElementById("pokeSPDEF").innerHTML = "SPDEF: " + pkSde;
-        document.getElementById("pokeSPE").innerHTML = "SPEED: " + pkSpe;
-        
-        document.getElementById("pokemon").style.display = "block";
-    }
+    function typeBonus() {
+        movetype = types.find(findType);
+    }*/
